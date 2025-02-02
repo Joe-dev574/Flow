@@ -18,12 +18,12 @@ struct CategoryCheckBox: View {
     @Binding var category: Category
     
     var body: some View {
-        HStack(spacing: 7) {
+        HStack(spacing: 10) {
             ForEach(Category.allCases, id: \.rawValue) { category in
-                HStack(spacing: 3) {
+               VStack(spacing: 10) {
                     ZStack {
                         Image(systemName: "circle")
-                            .font(.caption)
+                            .font(.callout)
                             .foregroundStyle(.blue)
                         
                         if self.category == category {
@@ -35,7 +35,7 @@ struct CategoryCheckBox: View {
                     Text(category.rawValue)
                         .font(.caption)
                         .fontDesign(.serif)
-                }
+                }.padding(7)
                 .contentShape(.rect)
                 .onTapGesture {
                     self.category = category

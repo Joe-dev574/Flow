@@ -18,15 +18,15 @@ struct CustomTabBar: View {
                 let allOffset = size.width - (10 * CGFloat(Category.allCases.count - 1))
                 
                 HStack(spacing: 5) {
-                    HStack(spacing: activeTab == .dates ? -15 : 8) {
-                        ForEach(Category.allCases.filter({ $0 != .dates }), id: \.rawValue) { tab in
+                    HStack(spacing: activeTab == .events ? -15 : 8) {
+                        ForEach(Category.allCases.filter({ $0 != .events }), id: \.rawValue) { tab in
                             ResizableTabButton(tab)
                         }
                         .fontDesign(.serif)
                     }
                     
-                    if activeTab == .dates {
-                        ResizableTabButton(.dates)
+                    if activeTab == .events {
+                        ResizableTabButton(.events)
                             .transition(.offset(x: allOffset))
                     }
                 }
@@ -53,7 +53,7 @@ struct CustomTabBar: View {
                         .lineLimit(1)
                 }
             }
-            .foregroundStyle(tab == .dates ? schemeColor : activeTab == tab ? .white : .gray)
+            .foregroundStyle(tab == .events ? schemeColor : activeTab == tab ? .white : .gray)
             .frame(maxHeight: .infinity)
             .frame(maxWidth: activeTab == tab ? .infinity : nil)
             .padding(.horizontal, activeTab == tab ? 10 : 15)
@@ -65,14 +65,14 @@ struct CustomTabBar: View {
             .background {
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .fill(.background)
-                    .padding(activeTab == .dates && tab != .dates ? -3 : 3)
+                    .padding(activeTab == .events && tab != .events ? -3 : 3)
             }
             .contentShape(.rect)
-            .onTapGesture {///double tap of tab to render the "dates" tab viewable for display 
-                guard tab != .dates else { return }
+            .onTapGesture {///double tap of tab to render the "events" tab viewable for display 
+                guard tab != .events else { return }
                 withAnimation(.bouncy) {
                     if activeTab == tab {
-                        activeTab = .dates
+                        activeTab = .events
                     } else {
                         activeTab = tab
                     }

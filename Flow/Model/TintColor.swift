@@ -30,7 +30,8 @@ struct TintColor: Identifiable {
         .init(color: "LightGrey", value: .lightGrey),
         .init(color: "MediumGrey", value: .mediumGrey),
         .init(color: "MediumBlue", value: .mediumBlue),
-        .init(color: "LightBlue", value: .lightBlue)
+        .init(color: "LightBlue", value: .lightBlue),
+        .init(color: "DarkBlue", value: .darkBlue)
     ]
     
 

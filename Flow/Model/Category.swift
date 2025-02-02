@@ -11,14 +11,14 @@ enum Category: String, CaseIterable {
     case today  = "Today"
     case upcoming = "Upcoming"
     case complete = "Complete"
-    case dates = "Dates"
+    case events = "Events"
     
     var color: Color {
         switch self {
-        case .today: .blue
-        case .upcoming: .orange
+        case .today: .darkBlue
+        case .upcoming: .launchAccent
         case .complete: .green
-       case .dates: Color.primary
+       case .events: Color.primary
         }
     }
     
@@ -27,7 +27,7 @@ enum Category: String, CaseIterable {
         case .today: "alarm"
         case .upcoming: "calendar"
         case .complete: "calendar.badge.checkmark"
-        case .dates: "repeat"
+        case .events: "repeat"
         }
     }
 }

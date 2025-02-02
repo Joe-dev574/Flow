@@ -18,6 +18,8 @@ struct AddItemView: View {
     @State private var title: String = ""
     @State private var remarks: String = ""
     @State private var dateAdded: Date = .now
+    @State private var dateDue: Date = .now
+    @State private var dateCompleted: Date = .now
     @State private var category: Category = .today
     /// Random Tint
     @State var tint: TintColor = tints.randomElement()!
@@ -25,39 +27,51 @@ struct AddItemView: View {
         NavigationStack {
             ScrollView(.vertical) {
                 VStack(spacing: 15) {
-                    Text("Category")
+                    Text("Choose Category Status")
                         .font(.callout)
                         .fontDesign(.serif)
                         .foregroundStyle(.gray)
-                    
+                    //MARK:  CATEGORY CHECKBOX
                     CategoryCheckBox(category: $category)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.gray, lineWidth: 1))
                         .padding(10)
-                    
-                    ///title
-                    Text("Title")
-                        .font(.system(size: 16))
-                        .fontDesign(.serif)
-                        .foregroundStyle(.secondary)
-                    ZStack(alignment: .topLeading) {
-                        if title.isEmpty {
-                            Text("Enter title here...")
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(3)
-                                .padding(10)
-                                .foregroundStyle(.secondary)
+                    //MARK:  DATE PICKER GROUP
+                    GroupBox{
+                        DatePicker("Date Created", selection: $dateAdded, in: dateAdded..., displayedComponents: .date)
+                        if category == .upcoming {
+                            DatePicker("Date Due", selection: $dateDue, in: dateAdded..., displayedComponents: .date)
                         }
-                        TextEditor(text: $title)
-                            .scrollContentBackground(.hidden)
-                            .background(Color.gray.opacity(0.1))
+                        if category == .events {
+                            DatePicker("Date Due", selection: $dateDue, displayedComponents: .date)
+                        }
+                        if category == .complete {
+                            DatePicker("Date Completed", selection: $dateCompleted, displayedComponents: .date)
+                        }
+                    }
+                        ///title
+                        Text("Title")
                             .font(.system(size: 16))
                             .fontDesign(.serif)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray, lineWidth: 1))
-                    }
+                            .foregroundStyle(.secondary)
+                        ZStack(alignment: .topLeading) {
+                            if title.isEmpty {
+                                Text("Enter title here...")
+                                    .multilineTextAlignment(.leading)
+                                    .lineLimit(3)
+                                    .padding(10)
+                                    .foregroundStyle(.secondary)
+                            }
+                            TextEditor(text: $title)
+                                .scrollContentBackground(.hidden)
+                                .background(Color.gray.opacity(0.1))
+                                .font(.system(size: 16))
+                                .fontDesign(.serif)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray, lineWidth: 1))
+                        }
                         
                         ///description
                         Text("Brief Description")
@@ -82,10 +96,11 @@ struct AddItemView: View {
                                         .stroke(Color.gray, lineWidth: 1)
                                 )
                         }
-                    }
                     .padding(.horizontal, 7)
                     .fontDesign(.serif)
                     .background(.background)
+                }
+            }
                     //MARK:  TOOLBAR
                     .toolbar{
                         ToolbarItem(placement: .topBarLeading, content: {
@@ -114,18 +129,16 @@ struct AddItemView: View {
                                     .foregroundStyle(.white)
                             }
                             .buttonStyle(.borderedProminent)
-                            .disabled(title.isEmpty || remarks.isEmpty)
+                            .disabled(title.isEmpty || remarks.isEmpty )
                             .padding(.horizontal, 2)
                         })
                     }
                 }
             }
-        }
-    
     //MARK: - Private Methods -
     private  func save() {
         /// Saving Task
-        let item = Item(title: title, remarks: remarks,category: category, tintColor: tint)
+        let item = Item(title: title, remarks: remarks, dateAdded: dateAdded, dateDue: dateDue, dateCompleted: dateCompleted, category: category, tintColor: tint)
         do {
             context.insert(item)
             try context.save()
@@ -153,46 +166,7 @@ struct AddItemView: View {
                 .background(.gray.opacity(0.10), in: .rect(cornerRadius: 10))
         }).padding(.horizontal, 7)
     }
-    @ViewBuilder
-    func LogoView() -> some View {
-        VStack(alignment: .leading, spacing: 6){
-            HStack {
-                Spacer()
-                ZStack{
-                    Image(systemName: "memorychip")
-                        .resizable()
-                        .frame(width: 45, height: 45)
-                        .foregroundColor(.blue).opacity(0.3)
-                    HStack {
-                        Text("Mind")
-                            .font(.callout)
-                            .fontDesign(.serif)
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                            .offset(x: 13, y: 1)
-                        Text("Map")
-                            .font(.callout)
-                            .fontDesign(.serif)
-                            .fontWeight(.bold)
-                            .foregroundColor(.blue)
-                            .offset(x: 5, y: 1)
-                      
-                        Text("1.0")
-                            .font(.caption)
-                            .fontDesign(.serif)
-                            .fontWeight(.regular)
-                            .padding(.leading, 10)
-                            .foregroundColor(.blue)
-                            .offset(x: -15, y: -5)
-                    }.offset(x: 5)
-                    
-                }
-                Spacer()
             }
-            }
-        }
-}
-
 #Preview {
     AddItemView()
 }
