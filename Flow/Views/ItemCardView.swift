@@ -14,9 +14,7 @@ import SwiftData
 struct ItemCardView: View {
     @Environment(\.modelContext) private var context
     let item: Item
-    
-    
-    
+ 
     var body: some View {
         NavigationStack{
             SwipeAction(cornerRadius: 10, direction: .trailing) {
@@ -31,7 +29,7 @@ struct ItemCardView: View {
                                 Text(item.category)
                                     .padding(4)
                                     .foregroundStyle(.white)
-                                    .background(item.color.gradient, in: .rect(cornerRadius: 10))
+                                    .background(item.color.gradient, in: .rect(cornerRadius: 3))
                                     .contentShape(.rect)
                                     .fontDesign(.serif)
                                     .font(.system(size: 14))
@@ -88,14 +86,14 @@ struct ItemCardView: View {
                                 }
                                 .padding(.top, 5)
                                 .padding(.bottom, 3)
-//                                if let tags = item.tags {
-//                                    ViewThatFits {
-//                                        TagsStackView(tags: tags)
-//                                        ScrollView(.horizontal, showsIndicators: false) {
-//                                            TagsStackView(tags: tags)
-//                                        }
-//                                    }
-//                                }
+                                if let tags = item.tags {
+                                    ViewThatFits {
+                           //             TagsStackView(tags: tags)
+                                        ScrollView(.horizontal, showsIndicators: false) {
+                              //              TagsStackView(tags: tags)
+                                        }
+                                    }
+                                }
                             }
                             .padding(.horizontal, 10)
                         }

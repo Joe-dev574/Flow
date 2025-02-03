@@ -36,10 +36,25 @@ struct AddItemView: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.gray, lineWidth: 1))
-                        .padding(10)
+                        .padding(7)
                     //MARK:  DATE PICKER GROUP
                     GroupBox{
-                        DatePicker("Date Created", selection: $dateAdded, in: dateAdded..., displayedComponents: .date)
+                        HStack{
+                            //MARK:  DATE CREATED DATA LINE
+                            Text("Date Created: ")
+                                .foregroundStyle(.primary)
+                                .fontDesign(.serif)
+                                .font(.callout)
+                            Spacer()
+                            Image(systemName: "calendar.badge.clock")
+                                .fontDesign(.serif)
+                                .foregroundStyle(.primary)
+                                .font(.system(size: 18))
+                            Text(dateAdded.formatted(.dateTime))
+                                .fontDesign(.serif)
+                                .foregroundColor(.primary)
+                                .font(.system(size: 18))
+                        }
                         if category == .upcoming {
                             DatePicker("Date Due", selection: $dateDue, in: dateAdded..., displayedComponents: .date)
                         }
@@ -71,7 +86,7 @@ struct AddItemView: View {
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color.gray, lineWidth: 1))
-                        }
+                        }  .padding(.horizontal, 7)
                         
                         ///description
                         Text("Brief Description")
@@ -100,7 +115,7 @@ struct AddItemView: View {
                     .fontDesign(.serif)
                     .background(.background)
                 }
-            }
+            }.padding(.horizontal, 10)
                     //MARK:  TOOLBAR
                     .toolbar{
                         ToolbarItem(placement: .topBarLeading, content: {

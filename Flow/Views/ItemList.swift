@@ -12,16 +12,11 @@ import SwiftData
 struct ItemList: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-    @State private var showAddItemSheet: Bool = false
     @State private var selectedItem: Item?
     @State private var startDate: Date = .now.startOfMonth
     @State private var endDate: Date = .now.endOfMonth
     @State private var filter = ""
     @State private var activeTab: Category = .today
-    
-    @State private var searchText: String = ""
-    @State private var isSearchActive: Bool = false
-    
     /// Scroll Properties
     @State private var scrollOffset: CGFloat = 0
     @State private var topInset: CGFloat = 0
@@ -30,7 +25,6 @@ struct ItemList: View {
     var body: some View {
         
         NavigationStack{
-            
             ScrollView(.vertical) {
                 VStack{
                     CustomTabBar(activeTab: $activeTab)
@@ -52,7 +46,7 @@ struct ItemList: View {
                     
                     LazyVStack(alignment: .leading) {
                         Text(activeTab.rawValue + (activeTab == .events ? " that repeat. " : " Objectives"))
-                            .font(.caption2)
+                            .font(.callout)
                             .fontDesign(.serif)
                             .foregroundStyle(.gray)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -71,7 +65,7 @@ struct ItemList: View {
                     .zIndex(0)
                 }
                 .navigationDestination(item: $selectedItem) { item in
-                    ItemEditView()
+                    ItemEditView(item: item)
                 }
             } .onScrollGeometryChange(for: CGFloat.self, of: {
                 $0.contentOffset.y

@@ -24,6 +24,7 @@ struct ContentView: View {
             VStack{
                 ItemList()
             }
+            //MARK:  TOOL BAR
             .toolbar{
                 ToolbarItem(placement: .topBarLeading, content: {
                     Button{
@@ -53,7 +54,7 @@ struct ContentView: View {
                     }
                     .sheet(isPresented: $showAddItemSheet) {
                         AddItemView()
-                            .presentationDetents([.large, .medium])
+                            .presentationDetents([.large])
                     }
                 }
             }

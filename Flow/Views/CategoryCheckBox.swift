@@ -42,7 +42,6 @@ struct CategoryCheckBox: View {
                 }
             }
         }
-        .padding(.horizontal, 10)
         .padding(.vertical, 7)
         //        .hSpacing(.center)
         .background(.gray.opacity(0.2), in: .rect(cornerRadius: 10))

@@ -19,10 +19,10 @@ final class Item {
     var category: String
     var status: Status.RawValue = Status.Hold.rawValue
     var tintColor: String
-    //    @Relationship(deleteRule: .cascade)
-    //    var notes: [Note]?
-    //    @Relationship(inverse: \Tag.items)
-    //    var tags: [Tag]?
+       @Relationship(deleteRule: .cascade)
+    var notes: [Note]?
+       @Relationship(inverse: \Tag.items)
+        var tags: [Tag]?
     //
     init(
         title: String = "",
@@ -32,7 +32,8 @@ final class Item {
         dateCompleted: Date = Date.distantPast,
         category: Category,
         status: Status = .Hold,
-        tintColor: TintColor
+        tintColor: TintColor,
+        tags: [Tag]? = nil
     ) {
         self.title = title
         self.remarks = remarks
@@ -42,7 +43,7 @@ final class Item {
         self.category = category.rawValue
         self.status = status.rawValue
         self.tintColor = tintColor.color
-        
+        self.tags = tags
     }
     var icon: Image {
         switch Status(rawValue: status)! {

@@ -10,6 +10,7 @@ import SwiftUI
 enum Category: String, CaseIterable {
     case today  = "Today"
     case upcoming = "Upcoming"
+    case notes  = "Notes"
     case complete = "Complete"
     case events = "Events"
     
@@ -19,6 +20,7 @@ enum Category: String, CaseIterable {
         case .upcoming: .launchAccent
         case .complete: .green
        case .events: Color.primary
+        case .notes: .mint
         }
     }
     
@@ -28,6 +30,7 @@ enum Category: String, CaseIterable {
         case .upcoming: "calendar"
         case .complete: "calendar.badge.checkmark"
         case .events: "repeat"
+        case .notes: "lightbulb.max"            
         }
     }
 }
