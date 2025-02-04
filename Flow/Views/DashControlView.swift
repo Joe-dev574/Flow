@@ -20,7 +20,7 @@ struct DashControlView: View {
             //MARK:  STATUS PICKER
             Text("Dash Controls")
                 .foregroundStyle(.gray)
-            
+                .fontDesign(.serif)
             HStack {
                 Spacer( )
                 Picker("Status", selection: $status) {
@@ -28,11 +28,12 @@ struct DashControlView: View {
                         Text(status.descr).tag(status) 
                     }
                     .fontDesign(.serif)
-                    .font(.system(size: 16))
+                    .font(.system(size: 14))
                     .fontWeight(.semibold)
+                    .frame(width: 120, height: 35)
                     .foregroundStyle(.blue)
                 }
-                .background(.thinMaterial.shadow(.drop(color: .black.opacity(0.95), radius: 4)), in: .rect(cornerRadius: 10))
+                .background(.thinMaterial.shadow(.drop(color: .black.opacity(0.95), radius: 2)), in: .rect(cornerRadius: 7))
                 .pickerStyle(.menu)
                 .buttonStyle(.bordered)
                 Spacer( )
@@ -41,30 +42,31 @@ struct DashControlView: View {
                     showTags.toggle()
                 }/// TAG BUTTON FONT SIZE AND COLOR ADJUSTMENTS
                 .fontDesign(.serif)
-                .font(.system(size: 16))
+                .font(.system(size: 14))
                 .fontWeight(.semibold)
                 .foregroundStyle(.blue)
                 .frame(width: 120, height: 35)
-                .background(.thinMaterial.shadow(.drop(color: .black.opacity(0.95), radius: 4)), in: .rect(cornerRadius: 10))
+                .background(.thinMaterial.shadow(.drop(color: .black.opacity(0.95), radius: 2)), in: .rect(cornerRadius: 7))
                 .sheet(isPresented: $showTags) {
                     TagView(item: item)
                 }
                 Spacer( )
                 //MARK:  UPDATE BUTTON
                        NavigationLink {
-                    NotesListView()
+                           NotesListView(item: item)
                 } label: {
                     let count = item.notes?.count ?? 0
                     Label("\(count) Notes", systemImage: "square.and.pencil").fontDesign(.serif)
                 }/// NOTES BUTTON FONT SIZE AND COLOR ADJUSTMENTS
                 .fontDesign(.serif)
-                .font(.system(size: 16))
+                .font(.system(size: 14))
                 .fontWeight(.semibold)
                 .foregroundStyle(.blue)
-                .background(.thinMaterial.shadow(.drop(color: .black.opacity(0.95), radius: 4)), in: .rect(cornerRadius: 10))
+                .frame(width: 120, height: 35)
+                .background(.thinMaterial.shadow(.drop(color: .black.opacity(0.95), radius: 2)), in: .rect(cornerRadius: 7))
                 Spacer( )
             }.padding(3)
-            .background(.thinMaterial.shadow(.drop(color: .black.opacity(0.55), radius: 4)), in: .rect(cornerRadius: 10))
+            .background(.thinMaterial.shadow(.drop(color: .black.opacity(0.55), radius: 2)), in: .rect(cornerRadius: 7))
             .buttonStyle(.bordered)
                 .padding(.horizontal, 7)
            

@@ -23,7 +23,9 @@ final class Item {
     var notes: [Note]?
        @Relationship(inverse: \Tag.items)
         var tags: [Tag]?
-    //
+    @Relationship(deleteRule: .cascade)
+    var objectiveTasks: [ObjectiveTask]?
+    
     init(
         title: String = "",
         remarks: String = "",

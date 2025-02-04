@@ -18,17 +18,17 @@ struct CategoryCheckBox: View {
     @Binding var category: Category
     
     var body: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: 7) {
             ForEach(Category.allCases, id: \.rawValue) { category in
-               VStack(spacing: 10) {
+               VStack(spacing: 7) {
                     ZStack {
                         Image(systemName: "circle")
-                            .font(.callout)
+                            .font(.title3)
                             .foregroundStyle(.blue)
                         
                         if self.category == category {
                             Image(systemName: "circle.fill")
-                                .font(.caption2)
+                                .font(.callout)
                                 .foregroundStyle(.orange)
                         }
                     }
@@ -44,7 +44,11 @@ struct CategoryCheckBox: View {
         }
         .padding(.vertical, 7)
         //        .hSpacing(.center)
-        .background(.gray.opacity(0.2), in: .rect(cornerRadius: 10))
+        .background(.gray.opacity(0.2), in: .rect(cornerRadius: 7))
+        .overlay(
+            RoundedRectangle(cornerRadius: 7)
+                .stroke(Color.gray, lineWidth: 1)
+        )
     }
     
     /// Number Formatter

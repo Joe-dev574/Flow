@@ -133,7 +133,7 @@ struct AddItemView: View {
                         })
                         ToolbarItem(placement:.topBarTrailing, content: {
                             Button {
-                                /// Saving Task
+                                /// Saving objectiveTask
                                 save()
                                 HapticManager.notification(type: .success)
                                 dismiss()
@@ -152,12 +152,12 @@ struct AddItemView: View {
             }
     //MARK: - Private Methods -
     private  func save() {
-        /// Saving Task
+        /// Saving objectiveTask
         let item = Item(title: title, remarks: remarks, dateAdded: dateAdded, dateDue: dateDue, dateCompleted: dateCompleted, category: category, tintColor: tint)
         do {
             context.insert(item)
             try context.save()
-            /// After Successful Task Creation, Dismissing the View
+            /// After Successful objectiveTask Creation, Dismissing the View
             dismiss()
         } catch {
             print(error.localizedDescription)

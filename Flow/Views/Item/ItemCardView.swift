@@ -46,7 +46,7 @@ struct ItemCardView: View {
                                     .foregroundStyle(.white)
                                     .shadow(color: .black, radius: 2, x: 1, y: 1)
                                     .frame(width: 35, height: 35)
-                                    .background(item.color.gradient, in: .circle)
+                                    .background(item.color.gradient.opacity(0.8))
                                     .padding(5)
                                 Text(item.title)
                                     .font(.system(size: 17))
@@ -88,9 +88,9 @@ struct ItemCardView: View {
                                 .padding(.bottom, 3)
                                 if let tags = item.tags {
                                     ViewThatFits {
-                           //             TagsStackView(tags: tags)
+                                        TagsStackView(tags: tags)
                                         ScrollView(.horizontal, showsIndicators: false) {
-                              //              TagsStackView(tags: tags)
+                                            TagsStackView(tags: tags)
                                         }
                                     }
                                 }
