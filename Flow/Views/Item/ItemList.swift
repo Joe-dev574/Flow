@@ -23,7 +23,6 @@ struct ItemList: View {
     @State private var startTopInset: CGFloat = 0
     
     var body: some View {
-        
         NavigationStack{
             ScrollView(.vertical) {
                 VStack{
@@ -44,9 +43,9 @@ struct ItemList: View {
                         .offset(y: (scrollOffset + topInset) > 0 ? (scrollOffset + topInset) : 0)
                         .zIndex(1000)
                     
-                    LazyVStack(alignment: .leading) {
+                    LazyVStack(alignment: .center) {
                         Text(activeTab.rawValue + (activeTab == .dates ? " that repeat. " : " Objectives"))
-                            .font(.callout)
+                            .font(.title3)
                             .fontDesign(.serif)
                             .foregroundStyle(.gray)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -58,6 +57,9 @@ struct ItemList: View {
                                         selectedItem = item
                                     }
                             }
+                            .navigationDestination(item: $selectedItem) { item in
+                                                          ItemEditView()
+                        }
                         }
                         .animation(.smooth, value: activeTab)
                     }
@@ -79,9 +81,9 @@ struct ItemList: View {
                 
                 topInset = newValue
             })
-            }
         }
     }
+}
 
 #Preview {
     ItemList()
