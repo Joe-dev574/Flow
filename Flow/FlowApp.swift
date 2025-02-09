@@ -12,7 +12,7 @@ import SwiftData
 struct FlowApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self, ObjectiveTask.self
+            Item.self, ItemTask.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

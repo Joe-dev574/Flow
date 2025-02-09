@@ -9,8 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class ObjectiveTask {
-    
+class ItemTask {
     var taskName: String = ""
     var taskRemark: String?
     var isCompleted: Bool = false

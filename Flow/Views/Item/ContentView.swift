@@ -43,7 +43,7 @@ struct ContentView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button{
                         showAddItemSheet = true
-                        //         HapticManager.notification(type: .success)
+                                HapticManager.notification(type: .success)
                     } label: {
                         Image(systemName: "plus")
                             .font(.callout)

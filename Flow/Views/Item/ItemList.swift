@@ -45,7 +45,7 @@ struct ItemList: View {
                         .zIndex(1000)
                     
                     LazyVStack(alignment: .leading) {
-                        Text(activeTab.rawValue + (activeTab == .events ? " that repeat. " : " Objectives"))
+                        Text(activeTab.rawValue + (activeTab == .dates ? " that repeat. " : " Objectives"))
                             .font(.callout)
                             .fontDesign(.serif)
                             .foregroundStyle(.gray)
@@ -64,10 +64,8 @@ struct ItemList: View {
                     .padding(1)
                     .zIndex(0)
                 }
-                .navigationDestination(item: $selectedItem) { item in
-                    ItemEditView(item: item)
-                }
-            } .onScrollGeometryChange(for: CGFloat.self, of: {
+            }
+            .onScrollGeometryChange(for: CGFloat.self, of: {
                 $0.contentOffset.y
             }, action: { oldValue, newValue in
                 scrollOffset = newValue
@@ -78,11 +76,13 @@ struct ItemList: View {
                 if startTopInset == .zero {
                     startTopInset = newValue
                 }
+                
                 topInset = newValue
             })
+            }
         }
     }
-}
+
 #Preview {
     ItemList()
 }

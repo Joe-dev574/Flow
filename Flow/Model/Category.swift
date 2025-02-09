@@ -10,17 +10,17 @@ import SwiftUI
 enum Category: String, CaseIterable {
     case today  = "Today"
     case upcoming = "Upcoming"
-    case notes  = "Notes"
+    case ideas  = "Ideas"
     case complete = "Complete"
-    case events = "Events"
+    case dates = "Dates!"
     
     var color: Color {
         switch self {
         case .today: .darkBlue
         case .upcoming: .launchAccent
         case .complete: .green
-       case .events: Color.primary
-        case .notes: .mint
+       case .dates: Color.primary
+        case .ideas: .yellow
         }
     }
     
@@ -29,8 +29,8 @@ enum Category: String, CaseIterable {
         case .today: "alarm"
         case .upcoming: "calendar"
         case .complete: "calendar.badge.checkmark"
-        case .events: "repeat"
-        case .notes: "lightbulb.max"            
+        case .dates: "repeat"
+        case .ideas: "lightbulb.max"            
         }
     }
 }

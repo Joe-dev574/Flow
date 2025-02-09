@@ -27,55 +27,55 @@ struct AddItemView: View {
         NavigationStack {
             ScrollView(.vertical) {
                 VStack(spacing: 15) {
-                    Text("Choose Category Status")
-                        .font(.callout)
-                        .fontDesign(.serif)
-                        .foregroundStyle(.gray)
-                    //MARK:  CATEGORY CHECKBOX
-                    CategoryCheckBox(category: $category)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray, lineWidth: 1))
-                        .padding(7)
+                    Section("Choose Category") {
+                        //MARK:  CATEGORY CHECKBOX
+                        CategoryCheckBox(category: $category)
+                            .padding(7)
+                    }  .foregroundStyle(.primary)
                     //MARK:  DATE PICKER GROUP
-                    GroupBox{
-                        HStack{
-                            //MARK:  DATE CREATED DATA LINE
-                            Text("Date Created: ")
-                                .foregroundStyle(.primary)
-                                .fontDesign(.serif)
-                                .font(.callout)
-                            Spacer()
-                            Image(systemName: "calendar.badge.clock")
-                                .fontDesign(.serif)
-                                .foregroundStyle(.primary)
-                                .font(.system(size: 18))
-                            Text(dateAdded.formatted(.dateTime))
-                                .fontDesign(.serif)
-                                .foregroundColor(.primary)
-                                .font(.system(size: 18))
+                    Section("Timeline") {
+                        GroupBox{
+                            HStack{
+                                //MARK:  DATE CREATED DATA LINE
+                                Text("Date Created: ")
+                                    .foregroundStyle(.primary)
+                                    .fontDesign(.serif)
+                                    .font(.callout)
+                                Spacer()
+                                Image(systemName: "calendar.badge.clock")
+                                    .fontDesign(.serif)
+                                    .foregroundStyle(.primary)
+                                    .font(.system(size: 14))
+                                Text(dateAdded.formatted(.dateTime))
+                                    .fontDesign(.serif)
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 14))
+                            }
+                            if category == .upcoming {
+                                DatePicker("Date Due", selection: $dateDue, in: dateAdded..., displayedComponents: .date)
+                            }
+                            if category == .dates {
+                                DatePicker("Date Due", selection: $dateDue, displayedComponents: .date)
+                            }
+                            if category == .complete {
+                                DatePicker("Date Completed", selection: $dateCompleted, displayedComponents: .date)
+                            }
                         }
-                        if category == .upcoming {
-                            DatePicker("Date Due", selection: $dateDue, in: dateAdded..., displayedComponents: .date)
-                        }
-                        if category == .events {
-                            DatePicker("Date Due", selection: $dateDue, displayedComponents: .date)
-                        }
-                        if category == .complete {
-                            DatePicker("Date Completed", selection: $dateCompleted, displayedComponents: .date)
-                        }
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 7)
+                                .stroke(Color.secondary, lineWidth: 1))
                     }
-                        ///title
-                        Text("Title")
-                            .font(.system(size: 16))
-                            .fontDesign(.serif)
-                            .foregroundStyle(.secondary)
+                   
+                    .padding(.horizontal, 7)
+                    ///title
+                    Section("Title") {
                         ZStack(alignment: .topLeading) {
                             if title.isEmpty {
                                 Text("Enter title here...")
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(3)
                                     .padding(10)
+                                    .fontDesign(.serif)
                                     .foregroundStyle(.secondary)
                             }
                             TextEditor(text: $title)
@@ -83,16 +83,14 @@ struct AddItemView: View {
                                 .background(Color.gray.opacity(0.1))
                                 .font(.system(size: 16))
                                 .fontDesign(.serif)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray, lineWidth: 1))
-                        }  .padding(.horizontal, 7)
-                        
-                        ///description
-                        Text("Brief Description")
-                            .font(.system(size: 16))
-                            .fontDesign(.serif)
-                            .foregroundStyle(.secondary)
+                        }
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 7)
+                                    .stroke(Color.secondary, lineWidth: 1))
+                    }
+                    .padding(.horizontal, 7)
+                    ///description
+                    Section("Brief Description") {
                         ZStack(alignment: .topLeading) {
                             if remarks.isEmpty {
                                 Text("Brief description here...")
@@ -107,49 +105,50 @@ struct AddItemView: View {
                                 .font(.system(size: 16))
                                 .fontDesign(.serif)
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray, lineWidth: 1)
-                                )
+                                    RoundedRectangle(cornerRadius: 7)
+                                        .stroke(Color.gray, lineWidth: 1))
                         }
-                    .padding(.horizontal, 7)
+                    }
                     .fontDesign(.serif)
                     .background(.background)
-                }
-            }.padding(.horizontal, 10)
-                    //MARK:  TOOLBAR
-                    .toolbar{
-                        ToolbarItem(placement: .topBarLeading, content: {
-                            Button {
-                                HapticManager.notification(type: .success)
-                                dismiss()
-                            } label: {
-                                Text("Cancel")
-                                    .fontDesign(.serif)
-                            }
-                            .buttonStyle(.automatic)
-                        })
-                        ToolbarItem(placement: .principal, content: {
-                            LogoView()
-                        })
-                        ToolbarItem(placement:.topBarTrailing, content: {
-                            Button {
-                                /// Saving objectiveTask
-                                save()
-                                HapticManager.notification(type: .success)
-                                dismiss()
-                            } label: {
-                                Text("Save")
-                                    .fontDesign(.serif)
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(.white)
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .disabled(title.isEmpty || remarks.isEmpty )
-                            .padding(.horizontal, 2)
-                        })
-                    }
-                }
+                }  .padding(.horizontal, 7)
             }
+            .padding(.horizontal, 10)
+            .fontDesign(.serif)
+            //MARK:  TOOLBAR
+                .toolbar{
+                    ToolbarItem(placement: .topBarLeading, content: {
+                        Button {
+                            HapticManager.notification(type: .success)
+                            dismiss()
+                        } label: {
+                            Text("Cancel")
+                                .fontDesign(.serif)
+                        }
+                        .buttonStyle(.automatic)
+                    })
+                    ToolbarItem(placement: .principal, content: {
+                        LogoView()
+                    })
+                    ToolbarItem(placement:.topBarTrailing, content: {
+                        Button {
+                            /// Saving objectiveTask
+                            save()
+                        
+                        } label: {
+                            Text("Save")
+                                .font(.callout)
+                                .fontDesign(.serif)
+                                .foregroundStyle(.white)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .disabled(title.isEmpty || remarks.isEmpty )
+                        .padding(.horizontal, 2)
+                    })
+                }
+                .padding(.top, -25)
+        }
+    }
     //MARK: - Private Methods -
     private  func save() {
         /// Saving objectiveTask
@@ -158,30 +157,13 @@ struct AddItemView: View {
             context.insert(item)
             try context.save()
             /// After Successful objectiveTask Creation, Dismissing the View
+            HapticManager.notification(type: .success)
             dismiss()
         } catch {
             print(error.localizedDescription)
         }
-        HapticManager.notification(type: .success)
-        dismiss()
     }
-   
-    @ViewBuilder
-    func CustomSection(_ title: String, _ hint: String, value: Binding<String>) -> some View {
-        VStack(alignment: .leading, spacing: 10, content: {
-            Text(title)
-                .font(.callout)
-                .fontDesign(.serif)
-                .foregroundStyle(.gray)
-              
-            
-            TextField(hint, text: value)
-                .padding(.horizontal, 15)
-                .padding(.vertical, 12)
-                .background(.gray.opacity(0.10), in: .rect(cornerRadius: 10))
-        }).padding(.horizontal, 7)
-    }
-            }
+}
 #Preview {
     AddItemView()
 }

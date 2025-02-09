@@ -8,9 +8,6 @@
 import SwiftUI
 import SwiftData
 
-
-
-
 struct CategoryCheckBox: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
@@ -18,9 +15,9 @@ struct CategoryCheckBox: View {
     @Binding var category: Category
     
     var body: some View {
-        HStack(spacing: 7) {
+        HStack(spacing: 5) {
             ForEach(Category.allCases, id: \.rawValue) { category in
-               VStack(spacing: 7) {
+               VStack(spacing: 5) {
                     ZStack {
                         Image(systemName: "circle")
                             .font(.title3)
@@ -35,15 +32,15 @@ struct CategoryCheckBox: View {
                     Text(category.rawValue)
                         .font(.caption)
                         .fontDesign(.serif)
-                }.padding(7)
+                }
+               .padding(5)
                 .contentShape(.rect)
                 .onTapGesture {
                     self.category = category
                 }
             }
         }
-        .padding(.vertical, 7)
-        //        .hSpacing(.center)
+        .padding(.vertical, 2)
         .background(.gray.opacity(0.2), in: .rect(cornerRadius: 7))
         .overlay(
             RoundedRectangle(cornerRadius: 7)
