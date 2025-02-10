@@ -12,7 +12,7 @@ struct NotesListView: View {
     let item: Item
     @State private var text = ""
     @State private var page = ""
-    @State private var selectedNote: Note?
+    @State private var selectedNote: Update?
     var isEditing: Bool {
         selectedNote != nil
     }
@@ -42,8 +42,8 @@ struct NotesListView: View {
                         text = ""
                         selectedNote = nil
                     } else {
-                        let note = page.isEmpty ? Note(text: text) : Note(text: text, page: page)
-                        item.notes?.append(note)
+                        let note = page.isEmpty ? Update(text: text) : Update(text: text, page: page)
+                        item.updates?.append(note)
                         text = ""
                         page = ""
                     }
@@ -57,7 +57,7 @@ struct NotesListView: View {
         }
         .padding(.horizontal)
         List {
-            let sortedNotes = item.notes?.sorted(using: KeyPathComparator(\Note.creationDate)) ?? []
+            let sortedNotes = item.updates?.sorted(using: KeyPathComparator(\Update.creationDate)) ?? []
             ForEach(sortedNotes) { note in
                 VStack(alignment: .leading) {
                     Text(note.creationDate, format: .dateTime.month().day().year())
@@ -82,7 +82,7 @@ struct NotesListView: View {
                 withAnimation {
                     indexSet.forEach { index in
                         let note = sortedNotes[index]
-                        item.notes?.forEach({ itemNote in
+                        item.updates?.forEach({ itemNote in
                             if note.id == itemNote.id {
                                 modelContext.delete(note)
                             }

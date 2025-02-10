@@ -1,5 +1,5 @@
 //
-//  Note.swift
+//  Update.swift
 //  Flow
 //
 //  Created by Joseph DeWeese on 2/2/25.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class Note {
+class Update {
     var creationDate: Date = Date.now
     var text: String = ""
     var page: String? = ""

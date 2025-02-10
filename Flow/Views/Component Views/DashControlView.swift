@@ -55,7 +55,7 @@ struct DashControlView: View {
                        NavigationLink {
                            NotesListView(item: item)
                 } label: {
-                    let count = item.notes?.count ?? 0
+                    let count = item.updates?.count ?? 0
                     Label("\(count) Notes", systemImage: "square.and.pencil").fontDesign(.serif)
                 }/// NOTES BUTTON FONT SIZE AND COLOR ADJUSTMENTS
                 .fontDesign(.serif)

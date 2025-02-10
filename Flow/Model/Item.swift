@@ -14,13 +14,14 @@ final class Item {
     var title: String
     var remarks: String
     var dateAdded: Date
+    var dateStarted: Date = Date.distantPast
     var dateDue: Date = Date.distantFuture
     var dateCompleted: Date = Date.distantPast
     var category: String
-    var status: Status.RawValue = Status.Hold.rawValue
+    var status: Status.RawValue = Status.Upcoming.rawValue
     var tintColor: String
        @Relationship(deleteRule: .cascade)
-    var notes: [Note]?
+    var updates: [Update]?
        @Relationship(inverse: \Tag.items)
         var tags: [Tag]?
     @Relationship(deleteRule: .cascade)
@@ -31,9 +32,10 @@ final class Item {
         remarks: String = "",
         dateAdded: Date = Date.now,
         dateDue: Date = Date.distantFuture,
+        dateStarted: Date = Date.distantPast,
         dateCompleted: Date = Date.distantPast,
         category: Category,
-        status: Status = .Hold,
+        status: Status = .Upcoming,
         tintColor: TintColor,
         tags: [Tag]? = nil
     ) {
@@ -41,6 +43,7 @@ final class Item {
         self.remarks = remarks
         self.dateAdded = dateAdded
         self.dateDue = dateDue
+        self.dateStarted = dateStarted
         self.dateCompleted = dateCompleted
         self.category = category.rawValue
         self.status = status.rawValue
@@ -49,7 +52,7 @@ final class Item {
     }
     var icon: Image {
         switch Status(rawValue: status)! {
-        case .Hold:
+        case .Upcoming:
             Image(systemName: "checkmark.diamond.fill")
         case .Active:
             Image(systemName: "item.fill")
@@ -72,14 +75,14 @@ final class Item {
     }
 }
     enum Status: Int, Codable, Identifiable, CaseIterable {
-        case Hold, Active, Completed
+        case Upcoming, Active, Completed
         var id: Self {
             self
         }
         var descr: LocalizedStringResource {
             switch self {
-            case .Hold:
-                "On Shelf"
+            case .Upcoming:
+                "Upcoming"
             case .Active:
                 "Active"
             case .Completed:
